@@ -1,0 +1,12 @@
+
+struct MessageType{
+
+
+};
+
+
+struct VehicelInformation{
+
+
+
+};
