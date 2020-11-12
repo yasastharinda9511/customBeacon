@@ -39,12 +39,6 @@ typedef struct MainFrame{
 	MsgType message_type;
 	VehicleInfo vehicle_info;
 	uint8_t frameBufVendor[50]; // this is a frame buffer for store vehicle data in vendor elements
-	//uint8_t *frameBufVendorPtr;
-	// store the address of the first
-	// element of frameBufVendor in frameBufVendorPtr
-	//frameBufVendorPtr = &frameBufVendor[0];
-
-	
 
 } Frame;
 
