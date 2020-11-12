@@ -15,8 +15,6 @@
  * */
 void setFrameValue(MainFrame *frame,uint8_t dataPosition,uint8_t data){
 	
-	//uint8_t *temp = frameBufVendorPtr + dataPosition;
-	 //temp= data;
 	 frame->frameBufVendor[dataPosition] = data;
 	
 }
