@@ -10,8 +10,29 @@
 #define BASIC_SAFETY_MESSAGE 0x03
 #define SUDDEN_BRAKE_MESSAGE 0x04
 
+/* 
 
+Present flags parameters
+Present Flag - |  0  |  0  |  0  |  0  |  0  |  0  |  0  |  0  |  0  |  0  |  0  |  0  |  0  |  0  |  0  |  0  |
+                  1     2     3     4     5     6     7     8     9     10    11    12    13    14    15    16    
+* 1-type
+* 2-id
+* 3-speed
+* 4-accel
+* 5-position
+* 6-direction
+* 7-lane
+* 8-status
 
+*/
+#define VEHICLE_TYPE_FLAG   0x0001 << 15
+#define VEHICLE_ID_FLAG     0x0001 << 14
+#define VEHICLE_SPEED_FLAG  0x0001 << 13
+#define VEHICLE_ACCEL_FLAG  0x0001 << 12
+#define VEHICLE_POS_FLAG    0x0001 << 11
+#define VEHICLE_DIR_FLAG    0x0001 << 10
+#define VEHICLE_LANE_FLAG   0x0001 << 9
+#define VEHICLE_STATUS_FLAG 0x0001 << 8
 
 
 typedef struct MessageType{
@@ -50,19 +71,29 @@ typedef struct MainFrame{
 /* Set Vehicle Properties on the Frame */
 
 
-void setFrameValue(MainFrame *frame,uint8_t dataPosition,uint8_t data);
+//void setFrameValue(MainFrame *frame,uint8_t dataPosition,uint8_t data);
+
+void setVehicleSpeed(MainFrame *frame,float speed);
+
+void setVehicleAcceleration(MainFrame *frame,float acceleration);
+
+void setVehicleType(MainFrame *frame,uint8_t type);
+
+void setVehiclePosition(MainFrame *frame,uint32_t pos);
+
+void setVehicleDirection(MainFrame *frame,uint8_t dir);
+
+void setVehicleLane(MainFrame *frame,uint8_t lane);
+
+void setVehicleID(MainFrame *frame,uint8_t id[4]);
 
 
-
-
-
-
-
-
-
-
-
-/* Get Vehicle Properties */
+/* 
+ * 
+ * Get Vehicle Properties 
+ * 
+ * 
+ * */
 
 uint8_t getVehicleType(MainFrame *frame);
 
