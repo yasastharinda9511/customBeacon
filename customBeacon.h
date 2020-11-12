@@ -112,6 +112,7 @@ uint8_t getVehicleDirection(MainFrame *frame);
 
 uint8_t getVehicleLane(MainFrame *frame);
 
+int8_t *getVehicleID(MainFrame *frame);
 
 
 // data converting to the finalpacket and put into the Dot11BeaconFrame//
