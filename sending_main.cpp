@@ -14,7 +14,7 @@ int main() {
 	Mframe->message_type.priority = '1';
 	Mframe->message_type.count = 20;
 	Mframe->message_type.messageType = EMERGENCY_VEHICLE_MESSAGE;
-
+	Mframe->frameBufVendor[0]=0x05;
         // Dot11Beacon beacon;
         // Make this a broadcast frame. Note that Dot11::BROADCAST
         // is just the same as "ff:ff:ff:ff:ff:ff"
