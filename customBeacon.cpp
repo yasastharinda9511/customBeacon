@@ -92,7 +92,10 @@ uint8_t getVehicleLane(MainFrame *frame){
 	return frame->vehicle_info.lane;
 }
 
-
+uint8_t *getVehicleID(MainFrame *frame){
+	uint8_t *ptr = &(frame->vehicle_info.vehicle_id[0]);
+	return ptr;
+}
 
 
 
