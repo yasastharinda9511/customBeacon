@@ -29,3 +29,24 @@ typedef struct MainFrame{
 	VehicleInfo vehicle_info;
 
 } Frame;
+
+
+uint8_t getVehicleType(){
+	
+	return 5;
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
