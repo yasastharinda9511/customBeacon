@@ -3,6 +3,10 @@
 #define BASIC_SAFETY_MESSAGE 0x03
 #define SUDDEN_BRAKE_MESSAGE 0x04
 
+
+
+
+
 typedef struct MessageType{
 	char priority;
 	uint8_t messageType;
@@ -15,8 +19,8 @@ typedef struct VehicelInformation{
 	uint8_t type;
 	uint8_t vehicle_id[4];
 	uint16_t present;
-	uint32_t acceleration;
-	uint32_t speed;
+	float_t acceleration;
+	float_t speed;
 	uint32_t pos;
 	uint8_t dir;
 	uint8_t lane;
@@ -27,18 +31,51 @@ typedef struct MainFrame{
 
 	MsgType message_type;
 	VehicleInfo vehicle_info;
+	
+	uint8_t frameBufVendor[50]; // this is a frame buffer for store vehicle data in vendor elements
+	uint8_t *frameBufVendorPtr;
+	// store the address of the first
+	// element of frameBufVendor in frameBufVendorPtr
+	frameBufVendorPtr = frameBufVendor;
 
 } Frame;
 
 
-uint8_t getVehicleType(){
-	
-	return 5;
-	
+
+
+
+
+/* Set Vehicle Properties on the Frame */
+
+
+void setFrameValue(MainFrame *frame,uint8_t dataPosition,uint8_t data){}
+
+
+
+
+
+
+
+
+
+
+
+/* Get Vehicle Properties */
+
+uint8_t getVehicleType(MainFrame *frame){
 }
 
+float_t getVehicleSpeed(MainFrame *frame){
+}
 
+float_t getVehicleAcceleration(MainFrame *frame){
+}
 
+uint8_t getVehicleDirection(MainFrame *frame){
+}
+
+uint8_t getVehicleLane(MainFrame *frame){
+}
 
 
 
