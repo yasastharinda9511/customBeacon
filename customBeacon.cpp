@@ -1,6 +1,9 @@
 
 #include "customBeacon.h"
-
+#include <stdint.h>
+#include <iostream>
+#include <unistd.h>
+#include <stdio.h>
 
 
 /* Set Vehicle Properties on the Frame */
@@ -12,7 +15,9 @@
  * */
 void setFrameValue(MainFrame *frame,uint8_t dataPosition,uint8_t data){
 	
-	frame->frameBufVendorPtr+dataPosition = data;
+	//uint8_t *temp = frameBufVendorPtr + dataPosition;
+	 //temp= data;
+	 frame->frameBufVendor[dataPosition] = data;
 	
 }
 
@@ -28,11 +33,11 @@ uint8_t getVehicleType(MainFrame *frame){
 	return frame->vehicle_info.type;
 }
 
-float_t getVehicleSpeed(MainFrame *frame){
+float getVehicleSpeed(MainFrame *frame){
 	return frame->vehicle_info.speed;
 }
 
-float_t getVehicleAcceleration(MainFrame *frame){
+float getVehicleAcceleration(MainFrame *frame){
 	return frame->vehicle_info.acceleration;
 }
 
