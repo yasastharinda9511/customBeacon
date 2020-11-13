@@ -13,8 +13,14 @@ int main() {
 
 	Mframe->message_type.priority = '1';
 	Mframe->message_type.count = 20;
-	Mframe->message_type.messageType = EMERGENCY_VEHICLE_MESSAGE;
-	Mframe->frameBufVendor[0]=0x05;
+	Mframe->message_type.msgCategory = EMERGENCY_VEHICLE_MESSAGE;
+	
+	
+	
+	
+	
+	
+	//Mframe->frameBufVendor[0]=0x05;
         // Dot11Beacon beacon;
         // Make this a broadcast frame. Note that Dot11::BROADCAST
         // is just the same as "ff:ff:ff:ff:ff:ff"
@@ -41,7 +47,7 @@ int main() {
 
         //NetworkInterface iface("wlan0");
 	std:: cout << "Priority of the frame is :"<< Mframe->message_type.priority <<std::endl;
-	std:: cout << "MessageType of the frame is :"<< Mframe->message_type.messageType <<std::endl;
+	std:: cout << "MessageType of the frame is :"<< Mframe->message_type.msgCategory <<std::endl;
 	std:: cout << "Count of the frame is :"<< Mframe->message_type.count <<std::endl;
         //while(1){
         //        sender.send(packt, iface);
