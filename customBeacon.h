@@ -11,7 +11,15 @@
 #define BASIC_SAFETY_MESSAGE 0x03
 #define SUDDEN_BRAKE_MESSAGE 0x04
 
-/* 
+// PRIORITY LEVELS//
+
+#define PRIORITY_1 0x01
+#define PRIORITY_2 0x02
+#define PRIORITY_3 0x03
+#define PRIORITY_4 0x04
+#define PRIORITY_NONE 0x05
+
+/*
 
 Present flags parameters
 Present Flag - |  0  |  0  |  0  |  0  |  0  |  0  |  0  |  0  |  0  |  0  |  0  |  0  |  0  |  0  |  0  |  0  |
@@ -35,7 +43,8 @@ Present Flag - |  0  |  0  |  0  |  0  |  0  |  0  |  0  |  0  |  0  |  0  |  0 
 #define VEHICLE_LANE_FLAG   0x0001 << 9
 #define VEHICLE_STATUS_FLAG 0x0001 << 8
 
-=======
+// Data PRIORITIES//
+
 #define VEHICLE_TYPE_CAR 0x01
 #define VEHICLE_TYPE_VAN 0x02
 #define VEHICLE_TYPE_BUS 0x03
@@ -45,7 +54,7 @@ Present Flag - |  0  |  0  |  0  |  0  |  0  |  0  |  0  |  0  |  0  |  0  |  0 
 // Data Types
 typedef struct MessageType{
 	char priority;
-	uint8_t messageType;
+	uint8_t msgCategory;
 	uint32_t count;
 } MsgType;
 
@@ -57,7 +66,7 @@ typedef struct VehicelInformation{
 	uint16_t present;
 	float acceleration;
 	float speed;
-	uint32_t pos;
+	uint32_t position;
 	uint8_t dir;
 	uint8_t lane;
 }VehicleInfo;
@@ -95,11 +104,11 @@ void setVehicleLane(MainFrame *frame,uint8_t lane);
 void setVehicleID(MainFrame *frame,uint8_t id[4]);
 
 
-/* 
- * 
- * Get Vehicle Properties 
- * 
- * 
+/*
+ *
+ * Get Vehicle Properties
+ *
+ *
  * */
 
 uint8_t getVehicleType(MainFrame *frame);
@@ -112,8 +121,9 @@ uint8_t getVehicleDirection(MainFrame *frame);
 
 uint8_t getVehicleLane(MainFrame *frame);
 
-int8_t *getVehicleID(MainFrame *frame);
+uint8_t *getVehicleID(MainFrame *frame);
 
+uint32_t getVehiclePosition(MainFrame *frame);
 
 // data converting to the finalpacket and put into the Dot11BeaconFrame//
 
