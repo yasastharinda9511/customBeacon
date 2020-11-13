@@ -137,7 +137,7 @@ uint32_t getVehiclePosition(MainFrame *frame);
 
 // data converting to the finalpacket and put into the Dot11BeaconFrame//
 
-void mainFrameToFinalBeacon(MainFrame *frame ,FinalBeacon *finalBeacon ,Tins:: Dot11Beacon *beacon);
+void mainFrameToFinalBeacon(MainFrame *frame ,FinalBeacon *finalBeacon);
 
 char getMessagePriority(MainFrame *frame);
 

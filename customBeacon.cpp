@@ -157,7 +157,7 @@ uint32_t getMessageCount(MainFrame *frame){
 }
 
 
-void mainFrameToFinalBeacon(MainFrame *frame ,FinalBeacon *finalBeacon ,Tins:: Dot11Beacon *beacon){
+void mainFrameToFinalBeacon(MainFrame *frame ,FinalBeacon *finalBeacon){
 	finalBeacon->ssid = "";
 	finalBeacon->ssid += getMessagePriority(frame);
 	finalBeacon->ssid += (char) getMessageCategory(frame);
@@ -169,18 +169,20 @@ void mainFrameToFinalBeacon(MainFrame *frame ,FinalBeacon *finalBeacon ,Tins:: D
 	finalBeacon->ssid +=  (char)((BeaconCount>>0 & 0xff));
 
 
-	std:: cout <<"SSID is :"<< finalBeacon->ssid;
+	//std:: cout <<"SSID is :"<< finalBeacon->ssid<<std :: endl ;
 
 	for(int i=15; i>=0; i--){
 		switch(frame->vehicle_info.present & 0x0001<< i){
 			case(VEHICLE_TYPE_FLAG):
 				{
+				//std:: cout <<"(VEHICLE_TYPE_FLAG :"<< getVehicleType(frame) <<std :: endl ;
 				finalBeacon->frameBufVendor.push_back(getVehicleType(frame));
 				break;
 				}
 			case(VEHICLE_ID_FLAG):
 				{
 				uint8_t *addr=getVehicleID(frame);
+				//std:: cout <<"(VEHICLE_ID_FLAG :"<< *(addr) <<std :: endl ;
 				finalBeacon->frameBufVendor.push_back(*addr);
 				finalBeacon->frameBufVendor.push_back(*(addr+1));
 				finalBeacon->frameBufVendor.push_back(*(addr+2));
@@ -189,6 +191,7 @@ void mainFrameToFinalBeacon(MainFrame *frame ,FinalBeacon *finalBeacon ,Tins:: D
 				}
 			case(VEHICLE_SPEED_FLAG):
 				{
+				//std:: cout <<"(VEHICLE_SPEED__FLAG :"<<std :: endl ;
 				float  vSpeed = getVehicleAcceleration(frame);
 				uint8_t *speed =(uint8_t*) (&vSpeed);
 				finalBeacon->frameBufVendor.push_back(*speed);
@@ -199,6 +202,7 @@ void mainFrameToFinalBeacon(MainFrame *frame ,FinalBeacon *finalBeacon ,Tins:: D
 				}
 			case(VEHICLE_ACCEL_FLAG):
 				{
+				//std:: cout <<"VEHICLE_ACCL_FLAG :"<<std :: endl ;
 				float  vAccl = getVehicleAcceleration(frame);
 				uint8_t *acceleration =(uint8_t*) (&vAccl);
 				finalBeacon->frameBufVendor.push_back(*acceleration);
@@ -209,21 +213,24 @@ void mainFrameToFinalBeacon(MainFrame *frame ,FinalBeacon *finalBeacon ,Tins:: D
 				}
 			case(VEHICLE_POS_FLAG):
 				{
-                uint32_t cPos = getVehiclePosition(frame);
-                finalBeacon->frameBufVendor.push_back((uint8_t)(cPos>>24 & 0xff));
-                finalBeacon->frameBufVendor.push_back((uint8_t)(cPos>>16 & 0xff));
-                finalBeacon->frameBufVendor.push_back((uint8_t)(cPos>>8 & 0xff));
-                finalBeacon->frameBufVendor.push_back((uint8_t)(cPos>>0 & 0xff));
-                break;
+				//std:: cout <<"VEHICLE_POS_FLAG :"<<std :: endl ;
+                		uint32_t cPos = getVehiclePosition(frame);
+                		finalBeacon->frameBufVendor.push_back((uint8_t)(cPos>>24 & 0xff));
+                		finalBeacon->frameBufVendor.push_back((uint8_t)(cPos>>16 & 0xff));
+                		finalBeacon->frameBufVendor.push_back((uint8_t)(cPos>>8 & 0xff));
+                		finalBeacon->frameBufVendor.push_back((uint8_t)(cPos>>0 & 0xff));
+                		break;
 				}
 			case(VEHICLE_DIR_FLAG):
 				{
-                uint8_t cDir = getVehicleDirection(frame);
-                finalBeacon->frameBufVendor.push_back(cDir);
+				//std:: cout <<"VEHICLE_DIR_FLAG :"<<std :: endl ;
+                		uint8_t cDir = getVehicleDirection(frame);
+                		finalBeacon->frameBufVendor.push_back(cDir);
 				break;
 				}
 			case(VEHICLE_LANE_FLAG):
 				{
+				//std:: cout <<"(VEHICLE_LANE_FLAG :"<<std :: endl ;
 				uint8_t cLane = getVehicleDirection(frame);
                                 finalBeacon->frameBufVendor.push_back(cLane);
 				break;
@@ -233,10 +240,14 @@ void mainFrameToFinalBeacon(MainFrame *frame ,FinalBeacon *finalBeacon ,Tins:: D
 				std::cout<<"IN"<<std::endl;
 				break;
 				}
-			// we can add more data 
+			// we can add more fieds 
 
 		}
 	}
+
+	//for (std::vector<uint8_t>::const_iterator i = finalBeacon->frameBufVendor.begin(); i != finalBeacon->frameBufVendor.end(); i++)
+        //	std::cout << *i << std :: endl ;
+	//std:: cout <<std::endl;
 }
 
 
