@@ -104,6 +104,16 @@ void setVehicleLane(MainFrame *frame,uint8_t lane);
 void setVehicleID(MainFrame *frame,uint8_t id[4]);
 
 
+
+void setMessagePriority(MainFrame *frame,uint8_t priority);
+
+void setMsgCategory(MainFrame *frame,uint8_t msgCategory);
+
+void setCount(MainFrame *frame, uint32_t count);
+
+
+
+
 /*
  *
  * Get Vehicle Properties
@@ -129,9 +139,11 @@ uint32_t getVehiclePosition(MainFrame *frame);
 
 void mainFrameToFinalBeacon(MainFrame *frame ,FinalBeacon *finalBeacon ,Tins:: Dot11Beacon *beacon);
 
+char getMessagePriority(MainFrame *frame);
 
+uint8_t getMessageCategory(MainFrame *frame);
 
-
+uint32_t getMessageCount(MainFrame *frame);
 
 
 
