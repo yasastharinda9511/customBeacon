@@ -63,7 +63,7 @@ typedef struct VehicelInformation{
 
 	uint8_t type;
 	uint8_t vehicle_id[4];
-	uint16_t present 0x0000;
+	uint16_t present = 0x0000;
 	float acceleration;
 	float speed;
 	uint32_t position;
