@@ -189,12 +189,23 @@ void mainFrameToFinalBeacon(MainFrame *frame ,FinalBeacon *finalBeacon ,Tins:: D
 				}
 			case(VEHICLE_SPEED_FLAG):
 				{
+				float  vSpeed = getVehicleAcceleration(frame);
+				uint8_t *speed =(uint8_t*) (&vSpeed);
+				finalBeacon->frameBufVendor.push_back(*speed);
+				finalBeacon->frameBufVendor.push_back(*(speed+1));
+				finalBeacon->frameBufVendor.push_back(*(speed+2));
+				finalBeacon->frameBufVendor.push_back(*(speed+3));
 				break;
 				}
 			case(VEHICLE_ACCEL_FLAG):
 				{
-				float  cAccl = getVehicleAcceleration(frame);
-                break;
+				float  vAccl = getVehicleAcceleration(frame);
+				uint8_t *acceleration =(uint8_t*) (&vAccl);
+				finalBeacon->frameBufVendor.push_back(*acceleration);
+				finalBeacon->frameBufVendor.push_back(*(acceleration+1));
+				finalBeacon->frameBufVendor.push_back(*(acceleration+2));
+				finalBeacon->frameBufVendor.push_back(*(acceleration+3));
+				break;
 				}
 			case(VEHICLE_POS_FLAG):
 				{
