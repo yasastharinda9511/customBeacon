@@ -4,7 +4,8 @@ The main purpose of maintaining this repository is to forge custom beacons using
   
 ![1](https://user-images.githubusercontent.com/37435024/99192107-10c7b300-2797-11eb-9d43-1f1b5c9992b2.jpg)
 
-# Customized Beacon Frame Architecture of our project
+# Architecture of our project
 
 We devided our project into 4 layes and identify what are the modifictaions we have to do in each layer. This reprository only describe the changes that we have made inside the application layer(Basically not changes piece of code running inside the application layer).  
 
+![20201023_231157](https://user-images.githubusercontent.com/37435024/99192280-11ad1480-2798-11eb-962e-691e9c487041.jpg)
