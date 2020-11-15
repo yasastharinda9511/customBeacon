@@ -1,6 +1,6 @@
 # customBeacon
 
-##Introduction
+## Introduction
 
   The main purpose of maintaining this repository is to forge custom beacons using C/C++ API called as `libtins`. We used Raspberry pi 3/B+ along with the ALFA  AWUS036NHA wifi adapter. Below figure illustrates the our test bench which we had used to deploy our codes and test it.Normally wifi beacons are considered as low priority level management frames Therefore these frames are treated as no QoS based frame. To enable the QoS inside the frame we used SSID frame inside the beacon frame as QOS filed and access that filed inside the linux wireless driver level and treated as qos based data frame (To achieve that you have to use this source codes along with the customized ath9k_htc driver.) 
   
@@ -17,4 +17,8 @@
   Like mentioned in the introductoion of the reprository to achieve the QoS enable beacon frames Qos field should be inside the frame. Actually beacon frames does not have that feature therefore we made some our own standard to use ssid field as our QoS filed
 
 ![Beacon_2](https://user-images.githubusercontent.com/37435024/99192577-87fe4680-2799-11eb-848b-5aab7ba74dc6.jpg)
+
+![ssid_2](https://user-images.githubusercontent.com/37435024/99192993-065be800-279c-11eb-81ff-b1396528fe1f.jpg)
+
+
                             
