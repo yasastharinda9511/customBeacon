@@ -40,7 +40,7 @@ void beaconFinalize(MainFrame *Mframe ,FinalBeacon *fbeacon,Tins::PacketSender *
 	Tins :: Dot11Beacon beacon;
 	mainFrameToFinalBeacon(Mframe ,fbeacon);
 	beacon.addr1(Tins::Dot11::BROADCAST);
-	beacon.addr2("00:01:02:03:04:05");
+	beacon.addr2("B8:27:EB:E3:43:DA");
 	beacon.addr3(beacon.addr2());
 	beacon.ssid(fbeacon->ssid);
 	beacon.vendor_specific(Tins :: Dot11ManagementFrame:: vendor_specific_type("00:45:23",fbeacon->frameBufVendor));

@@ -3,15 +3,15 @@ import time
 import threading
 
 def configureInterfaces():
-    os.system("sudo python3 configure.py")
+    os.system("sudo python /home/pi/customBeacon/configure.py")
 
 def rx():
-    os.system("sudo ./rx.o")
+    os.system("sudo /home/pi/customBeacon/rx.o")
     
 
 def tx():
     time.sleep(2)
-    os.system("sudo ./tx.o")
+    os.system("sudo /home/pi/customBeacon/tx.o")
 
 #waiting for start command
 

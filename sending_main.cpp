@@ -49,7 +49,7 @@ int main() {
 		beaconFinalize(Mframe,fbeacon,sender);
                 
                 usleep(100000);
-		if((currentTime-startTime)>20){
+		if((currentTime-startTime)>60){
 			return 0;
 		}
         }

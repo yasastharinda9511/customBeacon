@@ -11,19 +11,30 @@
 using namespace Tins;
 
 
-PacketWriter writer("../tmp_pcap/rx_test.pcap", DataLinkType<RadioTap>());
+
 
 
 
 int main() {
+	
+	
+	
 	time_t startTime = time(NULL);
+	struct tm *timeinfo;
+	char buffer[80];
+	time(&startTime);
+	timeinfo = localtime(&startTime);
+	strftime(buffer,sizeof(buffer),"%d-%m-%Y %H:%M:%S",timeinfo);
+	std::string str(buffer);
+	
+	PacketWriter writer("/home/pi/tmp_pcap/"+str+".pcap", DataLinkType<RadioTap>());
     
 	SnifferConfiguration config;
 	config.set_promisc_mode(true);
 	config.set_rfmon(true);
 	config.set_snap_len(1000);
 	config.set_filter("type mgt subtype beacon");
-	Sniffer sniffer("monRX",config);
+	Sniffer sniffer("wlan0mon",config);
 
 	
     PacketWriter *w= &writer;
@@ -35,7 +46,7 @@ int main() {
 		if(pdu->find_pdu<Dot11Beacon>()){
 			writer.write(pkt);
 		}
-		if((currentTime-startTime)>20){
+		if((currentTime-startTime)>60){
 			return 0;
 		}
 		
