@@ -2,11 +2,13 @@
 #include <iostream>
 #include <unistd.h>
 #include <stdio.h>
+#include <ctime>
 #include "customBeacon.h"
 
 
 
 int main() {
+	time_t startTime = time(NULL);
 
 	MainFrame  Mframe1;
 	MainFrame *Mframe= &Mframe1;
@@ -29,8 +31,9 @@ int main() {
 	currentData->vehicle_id[2] = 'C';
 	currentData->vehicle_id[3] = 'D';
 	
+	time_t currentTime;
         while(1){
-		
+		currentTime = time(NULL);
 		currentData->priority = PRIORITY_1;
 		currentData->msgCategory = EMERGENCY_VEHICLE_MESSAGE;
 		currentData->type = VEHICLE_TYPE_AMBULANCE;
@@ -46,6 +49,9 @@ int main() {
 		beaconFinalize(Mframe,fbeacon,sender);
                 
                 usleep(100000);
+		if((currentTime-startTime)>20){
+			return 0;
+		}
         }
 
 }

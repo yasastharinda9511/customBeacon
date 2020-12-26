@@ -49,7 +49,7 @@ void beaconFinalize(MainFrame *Mframe ,FinalBeacon *fbeacon,Tins::PacketSender *
 
     
 
-    Tins::NetworkInterface iface("wlan0");
+    Tins::NetworkInterface iface("monTX");
     sender->send(packt, iface);
 	
 	
