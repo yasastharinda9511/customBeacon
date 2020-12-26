@@ -6,18 +6,18 @@
 #include <string.h>
 #include <tins/tins.h>
 
-#define EMERGENCY_VEHICLE_MESSAGE 0x01
-#define LANE_CHANGING_MESSAGE 0x02
-#define BASIC_SAFETY_MESSAGE 0x03
-#define SUDDEN_BRAKE_MESSAGE 0x04
+#define EMERGENCY_VEHICLE_MESSAGE 0x41
+#define LANE_CHANGING_MESSAGE 0x42
+#define BASIC_SAFETY_MESSAGE 0x43
+#define SUDDEN_BRAKE_MESSAGE 0x44
 
 // PRIORITY LEVELS//
 
-#define PRIORITY_1 0x01
-#define PRIORITY_2 0x02
-#define PRIORITY_3 0x03
-#define PRIORITY_4 0x04
-#define PRIORITY_NONE 0x05
+#define PRIORITY_1 0x45
+#define PRIORITY_2 0x46
+#define PRIORITY_3 0x47
+#define PRIORITY_4 0x48
+#define PRIORITY_NONE 0x49
 
 /*
 
@@ -45,15 +45,32 @@ Present Flag - |  0  |  0  |  0  |  0  |  0  |  0  |  0  |  0  |  0  |  0  |  0 
 
 // Data PRIORITIES//
 
-#define VEHICLE_TYPE_CAR 0x01
-#define VEHICLE_TYPE_VAN 0x02
-#define VEHICLE_TYPE_BUS 0x03
-#define VEHICLE_TYPE_AMBULANCE 0x04
+#define VEHICLE_TYPE_CAR 0x41
+#define VEHICLE_TYPE_VAN 0x42
+#define VEHICLE_TYPE_BUS 0x43
+#define VEHICLE_TYPE_AMBULANCE 0x44
 
 
 // Data Types
+typedef struct data{
+
+	uint8_t priority;
+        uint8_t msgCategory;
+        uint32_t count;
+
+	uint8_t type;
+        uint8_t vehicle_id[4];
+        uint16_t present = 0x0000;
+        float acceleration;
+        float speed;
+        uint32_t position;
+        uint8_t dir;
+        uint8_t lane;
+
+} RealTime;
+
 typedef struct MessageType{
-	char priority;
+	uint8_t priority;
 	uint8_t msgCategory;
 	uint32_t count;
 } MsgType;
@@ -111,7 +128,9 @@ void setMsgCategory(MainFrame *frame,uint8_t msgCategory);
 
 void setCount(MainFrame *frame, uint32_t count);
 
+void realTimeUpdate(MainFrame *frame,RealTime * realtime);
 
+void beaconFinalize(MainFrame *frame ,FinalBeacon *finalBeacon,Tins::PacketSender *sender);
 
 
 /*

@@ -19,6 +19,42 @@
 
 }*/
 
+
+void realTimeUpdate(MainFrame *Mframe,RealTime * realtime){
+	
+	setMessagePriority(Mframe,realtime->priority);
+	setMsgCategory(Mframe,realtime->msgCategory);
+	realtime->count+=1;
+	setCount(Mframe, realtime->count);
+	setVehicleSpeed(Mframe,realtime->speed);
+	setVehicleAcceleration(Mframe,realtime->acceleration);
+	setVehicleType(Mframe, realtime->type);
+	setVehiclePosition(Mframe,realtime->position);
+	setVehicleDirection(Mframe,realtime->dir);
+	setVehicleLane(Mframe,realtime->lane);
+	setVehicleID(Mframe,realtime->vehicle_id);
+	
+}
+
+void beaconFinalize(MainFrame *Mframe ,FinalBeacon *fbeacon,Tins::PacketSender *sender){
+	Tins :: Dot11Beacon beacon;
+	mainFrameToFinalBeacon(Mframe ,fbeacon);
+	beacon.addr1(Tins::Dot11::BROADCAST);
+	beacon.addr2("00:01:02:03:04:05");
+	beacon.addr3(beacon.addr2());
+	beacon.ssid(fbeacon->ssid);
+	beacon.vendor_specific(Tins :: Dot11ManagementFrame:: vendor_specific_type("00:45:23",fbeacon->frameBufVendor));
+	
+	Tins::RadioTap packt= Tins :: RadioTap()/beacon;
+
+    
+
+    Tins::NetworkInterface iface("wlan0");
+    sender->send(packt, iface);
+	
+	
+}
+
 void setVehicleSpeed(MainFrame *frame,float speed){
 
 	frame->vehicle_info.present |= VEHICLE_SPEED_FLAG;
@@ -109,7 +145,7 @@ uint32_t getVehiclePosition(MainFrame *frame){
 }
 
 //set Message Properties //
-
+// important //
 void setMessagePriority(MainFrame *frame,uint8_t priority){
 
 	switch(priority){
@@ -158,8 +194,9 @@ uint32_t getMessageCount(MainFrame *frame){
 
 
 void mainFrameToFinalBeacon(MainFrame *frame ,FinalBeacon *finalBeacon){
+	finalBeacon->frameBufVendor.clear();
 	finalBeacon->ssid = "";
-	finalBeacon->ssid += getMessagePriority(frame);
+	finalBeacon->ssid += (char)getMessagePriority(frame);
 	finalBeacon->ssid += (char) getMessageCategory(frame);
 
 	uint32_t BeaconCount = getMessageCount(frame);
@@ -168,6 +205,9 @@ void mainFrameToFinalBeacon(MainFrame *frame ,FinalBeacon *finalBeacon){
 	finalBeacon->ssid +=  (char)((BeaconCount>>8 & 0xff));
 	finalBeacon->ssid +=  (char)((BeaconCount>>0 & 0xff));
 
+
+	finalBeacon->frameBufVendor.push_back(frame->vehicle_info.present>>8 & 0xff);
+	finalBeacon->frameBufVendor.push_back(frame->vehicle_info.present>>0 & 0xff);
 
 	//std:: cout <<"SSID is :"<< finalBeacon->ssid<<std :: endl ;
 
@@ -192,7 +232,7 @@ void mainFrameToFinalBeacon(MainFrame *frame ,FinalBeacon *finalBeacon){
 			case(VEHICLE_SPEED_FLAG):
 				{
 				//std:: cout <<"(VEHICLE_SPEED__FLAG :"<<std :: endl ;
-				float  vSpeed = getVehicleAcceleration(frame);
+				float  vSpeed = getVehicleSpeed(frame);
 				uint8_t *speed =(uint8_t*) (&vSpeed);
 				finalBeacon->frameBufVendor.push_back(*speed);
 				finalBeacon->frameBufVendor.push_back(*(speed+1));
@@ -245,9 +285,4 @@ void mainFrameToFinalBeacon(MainFrame *frame ,FinalBeacon *finalBeacon){
 		}
 	}
 
-	//for (std::vector<uint8_t>::const_iterator i = finalBeacon->frameBufVendor.begin(); i != finalBeacon->frameBufVendor.end(); i++)
-        //	std::cout << *i << std :: endl ;
-	//std:: cout <<std::endl;
 }
-
-
